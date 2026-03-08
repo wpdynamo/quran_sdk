@@ -285,7 +285,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Support
 
-For issues and questions, please visit the [GitHub repository](https://github.com/mahmmoudeid/quran_sdk).
+For issues and questions, please visit the [GitHub repository](https://github.com/wpdynamo/quran_sdk).
 
 ---
 
