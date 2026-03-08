@@ -1,3 +1,9 @@
+## 0.1.1
+
+* Updated GitHub repository URL to wpdynamo organization
+* Added Arabic README (README.ar.md)
+* Minor documentation improvements
+
 ## 0.1.0
 
 * Initial release
