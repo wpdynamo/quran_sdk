@@ -1,0 +1,25 @@
+name: quran_sdk
+description: Offline-first Quran SDK for Flutter with Arabic and English translations, audio support, and search functionality.
+version: 0.1.0
+homepage: https://github.com/mahmmoudeid/quran_sdk
+repository: https://github.com/mahmmoudeid/quran_sdk
+issue_tracker: https://github.com/mahmmoudeid/quran_sdk/issues
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - assets/data/surahs.json
+    - assets/data/verses.json
+    - assets/data/juz.json
