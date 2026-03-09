@@ -25,7 +25,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  quran_sdk: ^0.1.3
+  quran_sdk: ^0.1.4
 ```
 
 Then run:
