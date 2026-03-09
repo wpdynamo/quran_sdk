@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.7] - 2026-03-09
+
+### Added
+- Complete example.md with comprehensive usage examples
+- Dart console example (example/example.dart)
+- Complete dartdoc documentation for Juz and JuzPosition models
+- Multiple example formats for different use cases
+
+### Improved
+- Documentation coverage now at 76/117 (65%)
+- Better example structure following Dart guidelines
+- Complete API documentation for all public models
+
 ## [0.1.6] - 2026-03-09
 
 ### Added
