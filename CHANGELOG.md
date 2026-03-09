@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2026-03-09
+
+### Added
+- Complete dartdoc documentation for Audio model
+- Example directory with working example code
+- Example README with usage instructions
+
+### Improved
+- Documentation coverage for better pub.dev score
+- Code examples for easier onboarding
+
 ## [0.1.4] - 2026-03-09
 
 ### Added
