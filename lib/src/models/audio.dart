@@ -1,16 +1,22 @@
-/// Represents audio recitation information
+/// Represents audio recitation for a verse or chapter
 class Audio {
+  /// The reciter's unique identifier (1-5)
   final int reciterId;
+  
+  /// The reciter's full name
   final String reciterName;
+  
+  /// Direct URL to the audio file (MP3 format)
   final String url;
 
+  /// Creates an Audio instance
   const Audio({
     required this.reciterId,
     required this.reciterName,
     required this.url,
   });
 
-  /// Reciter information
+  /// Reciter information with names and server URLs
   static const Map<int, Map<String, String>> reciters = {
     1: {
       'name': 'Mishary Rashid Al Afasy',
@@ -39,7 +45,11 @@ class Audio {
     },
   };
 
-  /// Create Audio for a specific verse
+  /// Creates an Audio instance for a specific verse
+  /// 
+  /// [reciterId] - The reciter ID (1-5)
+  /// [surahNo] - The surah number (1-114)
+  /// [verseNo] - The verse number within the surah
   factory Audio.forVerse(int reciterId, int surahNo, int verseNo) {
     final reciter = reciters[reciterId]!;
     final surahPadded = surahNo.toString().padLeft(3, '0');
@@ -52,7 +62,10 @@ class Audio {
     );
   }
 
-  /// Create Audio for a complete chapter
+  /// Creates an Audio instance for a complete chapter/surah
+  /// 
+  /// [reciterId] - The reciter ID (1-5)
+  /// [surahNo] - The surah number (1-114)
   factory Audio.forChapter(int reciterId, int surahNo) {
     final reciter = reciters[reciterId]!;
     final surahPadded = surahNo.toString().padLeft(3, '0');
@@ -64,6 +77,7 @@ class Audio {
     );
   }
 
+  /// Converts the Audio instance to a JSON map
   Map<String, dynamic> toJson() {
     return {
       'reciter_id': reciterId,
