@@ -1,6 +1,6 @@
 name: quran_sdk
 description: Offline-first Quran SDK for Flutter with Arabic and English translations, audio support, search functionality, pages, sajda verses, and hizb.
-version: 0.1.8
+version: 0.1.9
 homepage: https://github.com/wpdynamo/quran_sdk
 repository: https://github.com/wpdynamo/quran_sdk
 issue_tracker: https://github.com/wpdynamo/quran_sdk/issues
