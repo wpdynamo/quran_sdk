@@ -27,7 +27,7 @@
 
 ```yaml
 dependencies:
-  quran_sdk: ^0.1.2
+  quran_sdk: ^0.1.3
 ```
 
 ثم قم بتشغيل:

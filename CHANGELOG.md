@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-03-09
+
+### Changed
+- Simplified Audio model by removing unused `urlOriginal` field
+- Audio model now uses single `url` field pointing to EveryAyah.com
+- Updated documentation to reflect Audio model changes
+
+### Fixed
+- Removed redundant audio URL field that was not functional
+
 ## [0.1.2] - 2026-03-09
 
 ### Added
