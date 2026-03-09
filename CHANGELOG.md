@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-03-09
+
+### Added
+- Complete metadata for all 6,236 verses:
+  - `pageNumber` field now populated for all verses (1-604)
+  - `hizbNumber` field now populated for all verses (1-60)
+  - `sajda` and `sajdaType` fields for 15 Sajda verses
+- Python script `update_verses_with_metadata.py` for automated metadata updates
+
+### Changed
+- Updated `verses.json` with complete metadata for all verses
+- Improved `Verse` model to properly read `hizb` field from JSON
+
+### Fixed
+- Fixed metadata consistency across all verses
+- Ensured all verses have proper page and hizb assignments
+
 ## [0.1.3] - 2026-03-09
 
 ### Changed

@@ -49,7 +49,7 @@ class Verse {
       textArabicNoTashkeel: json['text_arabic_without_tashkeel'] as String,
       textEnglish: json['text_english'] as String,
       audio: audio,
-      pageNumber: json['page'] as int?,
+      pageNumber: json['pageNumber'] as int?,
       hizbNumber: json['hizb'] as int?,
       isSajda: json['sajda'] as bool? ?? false,
       sajdaType: json['sajdaType'] as String?,
