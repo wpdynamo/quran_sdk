@@ -2,6 +2,9 @@ import 'models/surah.dart';
 import 'models/verse.dart';
 import 'models/juz.dart';
 import 'models/audio.dart';
+import 'models/page.dart';
+import 'models/sajda.dart';
+import 'models/hizb.dart';
 import 'data/data_loader.dart';
 
 /// Main SDK class for accessing Quran data
@@ -15,6 +18,9 @@ class QuranSDK {
     await DataLoader.loadSurahs();
     await DataLoader.loadVerses();
     await DataLoader.loadJuz();
+    await DataLoader.loadPages();
+    await DataLoader.loadSajdaVerses();
+    await DataLoader.loadHizb();
     
     _initialized = true;
   }
@@ -191,4 +197,120 @@ class QuranSDK {
   Audio getChapterAudio(int reciterId, int surahNumber) {
     return Audio.forChapter(reciterId, surahNumber);
   }
+
+  // ==================== Pages Functions ====================
+  
+  /// Get all pages (604 pages)
+  Future<List<QuranPage>> getAllPages() async {
+    _ensureInitialized();
+    return await DataLoader.loadPages();
+  }
+  
+  /// Get a specific page by number (1-604)
+  Future<QuranPage?> getPage(int pageNumber) async {
+    if (pageNumber < 1 || pageNumber > 604) return null;
+    
+    final pages = await getAllPages();
+    return pages.firstWhere((p) => p.number == pageNumber);
+  }
+  
+  /// Get page number for a specific verse
+  Future<int?> getPageNumber(int surahNumber, int verseNumber) async {
+    final verse = await getVerse(surahNumber, verseNumber);
+    return verse?.pageNumber;
+  }
+  
+  /// Get all verses in a page with full text
+  Future<List<Verse>> getVersesByPage(int pageNumber) async {
+    final page = await getPage(pageNumber);
+    if (page == null) return [];
+    
+    final verses = <Verse>[];
+    for (var pv in page.verses) {
+      final verse = await getVerse(pv.surahNumber, pv.verseNumber);
+      if (verse != null) verses.add(verse);
+    }
+    
+    return verses;
+  }
+  
+  // ==================== Sajda Functions ====================
+  
+  /// Get all Sajda verses (15 verses)
+  Future<List<Sajda>> getSajdaVerses() async {
+    _ensureInitialized();
+    return await DataLoader.loadSajdaVerses();
+  }
+  
+  /// Get full verse data for Sajda verses
+  Future<List<Verse>> getSajdaVersesWithText() async {
+    final sajdaList = await getSajdaVerses();
+    final verses = <Verse>[];
+    
+    for (var sajda in sajdaList) {
+      final verse = await getVerse(sajda.surahNumber, sajda.verseNumber);
+      if (verse != null) verses.add(verse);
+    }
+    
+    return verses;
+  }
+  
+  /// Check if a verse is a Sajda verse
+  Future<bool> isSajdaVerse(int surahNumber, int verseNumber) async {
+    final verse = await getVerse(surahNumber, verseNumber);
+    return verse?.isSajda ?? false;
+  }
+  
+  // ==================== Hizb Functions ====================
+  
+  /// Get all Hizb (60 Hizb)
+  Future<List<Hizb>> getAllHizb() async {
+    _ensureInitialized();
+    return await DataLoader.loadHizb();
+  }
+  
+  /// Get a specific Hizb by number (1-60)
+  Future<Hizb?> getHizb(int hizbNumber) async {
+    if (hizbNumber < 1 || hizbNumber > 60) return null;
+    
+    final hizbList = await getAllHizb();
+    return hizbList.firstWhere((h) => h.number == hizbNumber);
+  }
+  
+  /// Get all verses in a Hizb
+  Future<List<Verse>> getVersesByHizb(int hizbNumber) async {
+    final hizb = await getHizb(hizbNumber);
+    if (hizb == null) return [];
+    
+    final verses = await DataLoader.loadVerses();
+    final result = <Verse>[];
+    
+    if (hizb.start.surah == hizb.end.surah) {
+      // Same surah
+      final surahVerses = verses[hizb.start.surah];
+      if (surahVerses != null) {
+        for (var i = hizb.start.verse; i <= hizb.end.verse; i++) {
+          final verse = surahVerses[i];
+          if (verse != null) result.add(verse);
+        }
+      }
+    } else {
+      // Multiple surahs
+      for (var surahNo = hizb.start.surah; surahNo <= hizb.end.surah; surahNo++) {
+        final surahVerses = verses[surahNo];
+        if (surahVerses == null) continue;
+        
+        final startVerse = (surahNo == hizb.start.surah) ? hizb.start.verse : 1;
+        final endVerse = (surahNo == hizb.end.surah) ? hizb.end.verse : surahVerses.length;
+        
+        for (var i = startVerse; i <= endVerse; i++) {
+          final verse = surahVerses[i];
+          if (verse != null) result.add(verse);
+        }
+      }
+    }
+    
+    return result;
+  }
+
 }

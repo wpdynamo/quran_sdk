@@ -9,6 +9,18 @@ class Verse {
   final String textArabicNoTashkeel;
   final String textEnglish;
   final Map<int, Audio> audio;
+  
+  /// Page number in the Mushaf (1-604)
+  final int? pageNumber;
+  
+  /// Hizb number (1-60)
+  final int? hizbNumber;
+  
+  /// Is this a Sajda verse
+  final bool isSajda;
+  
+  /// Type of Sajda if applicable ('obligatory' or 'recommended')
+  final String? sajdaType;
 
   const Verse({
     required this.surah,
@@ -17,6 +29,10 @@ class Verse {
     required this.textArabicNoTashkeel,
     required this.textEnglish,
     required this.audio,
+    this.pageNumber,
+    this.hizbNumber,
+    this.isSajda = false,
+    this.sajdaType,
   });
 
   factory Verse.fromJson(Map<String, dynamic> json, Surah surah) {
@@ -33,6 +49,10 @@ class Verse {
       textArabicNoTashkeel: json['text_arabic_without_tashkeel'] as String,
       textEnglish: json['text_english'] as String,
       audio: audio,
+      pageNumber: json['page'] as int?,
+      hizbNumber: json['hizb'] as int?,
+      isSajda: json['sajda'] as bool? ?? false,
+      sajdaType: json['sajdaType'] as String?,
     );
   }
 

@@ -9,3 +9,6 @@ export 'src/models/surah.dart';
 export 'src/models/verse.dart';
 export 'src/models/juz.dart';
 export 'src/models/audio.dart';
+export 'src/models/page.dart';
+export 'src/models/sajda.dart';
+export 'src/models/hizb.dart';

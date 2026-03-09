@@ -57,7 +57,7 @@ void main() async {
   print('--- Example 5: Get a random verse ---');
   final randomVerse = await quran.getRandomVerse();
   print('${randomVerse.surah.name} ${randomVerse.number}:');
-  print('${randomVerse.textEnglish}');
+  print(randomVerse.textEnglish);
   print('');
 
   // Example 6: Get Juz information

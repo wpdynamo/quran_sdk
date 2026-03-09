@@ -1,0 +1,107 @@
+[
+  {
+    "surah": 7,
+    "verse": 206,
+    "surahName": "Al-A'raf",
+    "surahNameArabic": "الأعراف",
+    "type": "recommended"
+  },
+  {
+    "surah": 13,
+    "verse": 15,
+    "surahName": "Ar-Ra'd",
+    "surahNameArabic": "الرعد",
+    "type": "recommended"
+  },
+  {
+    "surah": 16,
+    "verse": 50,
+    "surahName": "An-Nahl",
+    "surahNameArabic": "النحل",
+    "type": "recommended"
+  },
+  {
+    "surah": 17,
+    "verse": 109,
+    "surahName": "Al-Isra",
+    "surahNameArabic": "الإسراء",
+    "type": "recommended"
+  },
+  {
+    "surah": 19,
+    "verse": 58,
+    "surahName": "Maryam",
+    "surahNameArabic": "مريم",
+    "type": "recommended"
+  },
+  {
+    "surah": 22,
+    "verse": 18,
+    "surahName": "Al-Hajj",
+    "surahNameArabic": "الحج",
+    "type": "recommended"
+  },
+  {
+    "surah": 22,
+    "verse": 77,
+    "surahName": "Al-Hajj",
+    "surahNameArabic": "الحج",
+    "type": "recommended"
+  },
+  {
+    "surah": 25,
+    "verse": 60,
+    "surahName": "Al-Furqan",
+    "surahNameArabic": "الفرقان",
+    "type": "recommended"
+  },
+  {
+    "surah": 27,
+    "verse": 26,
+    "surahName": "An-Naml",
+    "surahNameArabic": "النمل",
+    "type": "recommended"
+  },
+  {
+    "surah": 32,
+    "verse": 15,
+    "surahName": "As-Sajdah",
+    "surahNameArabic": "السجدة",
+    "type": "obligatory"
+  },
+  {
+    "surah": 38,
+    "verse": 24,
+    "surahName": "Sad",
+    "surahNameArabic": "ص",
+    "type": "recommended"
+  },
+  {
+    "surah": 41,
+    "verse": 38,
+    "surahName": "Fussilat",
+    "surahNameArabic": "فصلت",
+    "type": "obligatory"
+  },
+  {
+    "surah": 53,
+    "verse": 62,
+    "surahName": "An-Najm",
+    "surahNameArabic": "النجم",
+    "type": "recommended"
+  },
+  {
+    "surah": 84,
+    "verse": 21,
+    "surahName": "Al-Inshiqaq",
+    "surahNameArabic": "الانشقاق",
+    "type": "recommended"
+  },
+  {
+    "surah": 96,
+    "verse": 19,
+    "surahName": "Al-Alaq",
+    "surahNameArabic": "العلق",
+    "type": "recommended"
+  }
+]
