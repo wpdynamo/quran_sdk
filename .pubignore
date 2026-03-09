@@ -1,0 +1,27 @@
+# Exclude scripts directory
+scripts/
+
+# Exclude development files
+*.py
+*.pyc
+__pycache__/
+
+# Exclude git files
+.git/
+.gitignore
+
+# Exclude IDE files
+.vscode/
+.idea/
+*.iml
+
+# Exclude test files (if any)
+test/
+
+# Exclude example app (if any)
+example/
+
+# Exclude documentation drafts
+*.draft.md
+NOTES.md
+TODO.md
