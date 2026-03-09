@@ -1,0 +1,15 @@
+name: quran_sdk_example
+description: Example app demonstrating quran_sdk usage
+publish_to: 'none'
+
+environment:
+  sdk: ^3.11.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  quran_sdk:
+    path: ../
+
+flutter:
+  uses-material-design: true

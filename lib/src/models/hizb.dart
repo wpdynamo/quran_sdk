@@ -12,6 +12,7 @@ class Hizb {
   /// Ending position
   final HizbPosition end;
   
+  /// Creates a Hizb instance
   Hizb({
     required this.number,
     required this.quarter,
@@ -19,6 +20,7 @@ class Hizb {
     required this.end,
   });
   
+  /// Creates a Hizb instance from JSON data
   factory Hizb.fromJson(Map<String, dynamic> json) {
     return Hizb(
       number: json['number'] as int,
@@ -28,6 +30,7 @@ class Hizb {
     );
   }
   
+  /// Converts the Hizb instance to JSON
   Map<String, dynamic> toJson() {
     return {
       'number': number,
@@ -55,11 +58,13 @@ class HizbPosition {
   /// Verse number
   final int verse;
   
+  /// Creates a HizbPosition instance
   HizbPosition({
     required this.surah,
     required this.verse,
   });
   
+  /// Creates a HizbPosition instance from JSON data
   factory HizbPosition.fromJson(Map<String, dynamic> json) {
     return HizbPosition(
       surah: json['surah'] as int,
