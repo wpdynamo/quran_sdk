@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2026-03-09
+
+### Fixed
+- Cleaned up example directory structure
+- Removed duplicate main.dart from example root
+- Example now properly structured for pub.dev recognition
+
 ## [0.1.7] - 2026-03-09
 
 ### Added
