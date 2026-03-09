@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2026-03-09
+
+### Added
+- Proper Flutter example app (instead of simple Dart script)
+- Complete dartdoc documentation for Hizb and HizbPosition models
+- Example app with pubspec.yaml and proper structure
+
+### Improved
+- Example now follows Dart package layout guidelines
+- Better documentation coverage for pub.dev score
+
 ## [0.1.5] - 2026-03-09
 
 ### Added
