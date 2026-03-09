@@ -14,6 +14,9 @@
 - 🎵 **دعم الصوتيات**: روابط لـ 5 قراء مشهورين لكل آية وسورة
 - 🔍 **البحث**: ابحث في الآيات بالعربية أو الإنجليزية
 - 📚 **دعم الأجزاء**: الوصول إلى جميع الأجزاء الـ 30 من القرآن
+- 📄 **دعم الصفحات**: الوصول إلى جميع صفحات المصحف الـ 604 (جديد في 0.1.2)
+- 🕌 **آيات السجدة**: الحصول على جميع آيات السجدة الـ 15 (جديد في 0.1.2)
+- 📖 **دعم الأحزاب**: الوصول إلى جميع الأحزاب الـ 60 (جديد في 0.1.2)
 - 🎲 **آية عشوائية**: احصل على آيات عشوائية
 - ⚡ **سريع**: جميع البيانات محملة في الذاكرة للوصول الفوري
 - 🎯 **واجهة برمجية بسيطة**: طرق سهلة الاستخدام لجميع العمليات
@@ -24,7 +27,7 @@
 
 ```yaml
 dependencies:
-  quran_sdk: ^0.1.0
+  quran_sdk: ^0.1.2
 ```
 
 ثم قم بتشغيل:
@@ -130,6 +133,63 @@ final verses = await quran.getVersesByJuz(1);
 print('الجزء الأول يحتوي على ${verses.length} آية');
 ```
 
+### الحصول على الصفحات (جديد في 0.1.2)
+
+```dart
+// الحصول على جميع الصفحات (604 صفحة)
+final pages = await quran.getAllPages();
+print('إجمالي الصفحات: ${pages.length}');
+
+// الحصول على صفحة محددة
+final page = await quran.getPage(1);
+print('الصفحة ${page?.number}: من ${page?.startSurah}:${page?.startVerse} إلى ${page?.endSurah}:${page?.endVerse}');
+
+// الحصول على رقم صفحة آية
+final pageNum = await quran.getPageNumber(2, 1);
+print('الآية 2:1 في الصفحة $pageNum');
+
+// الحصول على جميع آيات صفحة
+final verses = await quran.getVersesByPage(1);
+print('الصفحة الأولى تحتوي على ${verses.length} آية');
+```
+
+### الحصول على آيات السجدة (جديد في 0.1.2)
+
+```dart
+// الحصول على جميع آيات السجدة (15 آية)
+final sajdaVerses = await quran.getSajdaVerses();
+print('إجمالي آيات السجدة: ${sajdaVerses.length}');
+
+for (var sajda in sajdaVerses) {
+  print('${sajda.surahNameArabic} ${sajda.verseNumber} - ${sajda.type}');
+  // النتيجة: الأعراف 206 - recommended
+}
+
+// الحصول على آيات السجدة مع النص الكامل
+final verses = await quran.getSajdaVersesWithText();
+
+// التحقق من كون آية سجدة
+final isSajda = await quran.isSajdaVerse(32, 15);
+print('هل 32:15 آية سجدة؟ $isSajda'); // true
+```
+
+### معلومات الأحزاب (جديد في 0.1.2)
+
+```dart
+// الحصول على جميع الأحزاب (60 حزب)
+final hizbList = await quran.getAllHizb();
+print('إجمالي الأحزاب: ${hizbList.length}');
+
+// الحصول على حزب محدد
+final hizb = await quran.getHizb(1);
+print('${hizb?.displayName}: من ${hizb?.start} إلى ${hizb?.end}');
+// النتيجة: الحزب 1 - الربع 1: من 1:1 إلى 2:25
+
+// الحصول على جميع آيات حزب
+final verses = await quran.getVersesByHizb(1);
+print('الحزب الأول يحتوي على ${verses.length} آية');
+```
+
 ### دعم الصوتيات
 
 ```dart
@@ -142,7 +202,7 @@ for (var reciter in reciters) {
 // الحصول على صوت آية
 final verse = await quran.getVerse(1, 1);
 final audio = verse?.audio[1]; // القارئ رقم 1 (مشاري العفاسي)
-print('رابط الصوت: ${audio?.urlOriginal}');
+print('رابط الصوت: ${audio?.url}');
 
 // الحصول على صوت سورة كاملة
 final chapterAudio = quran.getChapterAudio(1, 112);
@@ -183,6 +243,10 @@ class Verse {
   final String textArabicNoTashkeel;    // النص العربي بدون تشكيل
   final String textEnglish;             // الترجمة الإنجليزية
   final Map<int, Audio> audio;          // الصوتيات للقراء
+  final int? pageNumber;                // رقم الصفحة (جديد في 0.1.2)
+  final int? hizbNumber;                // رقم الحزب (جديد في 0.1.2)
+  final bool isSajda;                   // هل آية سجدة (جديد في 0.1.2)
+  final String? sajdaType;              // نوع السجدة (جديد في 0.1.2)
 }
 ```
 
@@ -196,6 +260,53 @@ class Juz {
 }
 ```
 
+### الصفحة (QuranPage) - جديد في 0.1.2
+
+```dart
+class QuranPage {
+  final int number;              // رقم الصفحة (1-604)
+  final List<PageVerse> verses;  // قائمة الآيات في الصفحة
+  final int startSurah;          // رقم السورة الأولى
+  final int startVerse;          // رقم الآية الأولى
+  final int endSurah;            // رقم السورة الأخيرة
+  final int endVerse;            // رقم الآية الأخيرة
+}
+
+class PageVerse {
+  final int surahNumber;         // رقم السورة
+  final int verseNumber;         // رقم الآية
+  final bool isFirstInSurah;     // هل أول آية في السورة
+}
+```
+
+### السجدة (Sajda) - جديد في 0.1.2
+
+```dart
+class Sajda {
+  final int surahNumber;         // رقم السورة
+  final int verseNumber;         // رقم الآية
+  final String surahName;        // اسم السورة بالإنجليزية
+  final String surahNameArabic;  // اسم السورة بالعربية
+  final String type;             // نوع السجدة: 'obligatory' أو 'recommended'
+}
+```
+
+### الحزب (Hizb) - جديد في 0.1.2
+
+```dart
+class Hizb {
+  final int number;              // رقم الحزب (1-60)
+  final int quarter;             // رقم الربع (1-4)
+  final HizbPosition start;      // بداية الحزب
+  final HizbPosition end;        // نهاية الحزب
+}
+
+class HizbPosition {
+  final int surah;               // رقم السورة
+  final int verse;               // رقم الآية
+}
+```
+
 ### الصوت (Audio)
 
 ```dart
@@ -203,7 +314,6 @@ class Audio {
   final int reciterId;        // رقم القارئ
   final String reciterName;   // اسم القارئ
   final String url;           // رابط الصوت
-  final String urlOriginal;   // الرابط الأصلي
 }
 ```
 
@@ -212,9 +322,12 @@ class Audio {
 تتضمن المكتبة جميع بيانات القرآن كملفات JSON:
 - السور: ~30 كيلوبايت
 - الآيات: ~3.7 ميجابايت
-- الأجزاء: ~1 كيلوبايت
+- الأجزاء: ~4 كيلوبايت
+- الصفحات: ~632 كيلوبايت (جديد في 0.1.2)
+- السجدة: ~2 كيلوبايت (جديد في 0.1.2)
+- الأحزاب: ~24 كيلوبايت (جديد في 0.1.2)
 
-إجمالي البيانات المدمجة: ~3.8 ميجابايت
+إجمالي البيانات المدمجة: ~4.4 ميجابايت
 
 ## 🔧 الاستخدام المتقدم
 
@@ -311,6 +424,22 @@ await quran.search(
 await quran.getAllJuz();                    // الحصول على جميع الأجزاء (30)
 await quran.getJuz(1);                      // الحصول على جزء محدد
 await quran.getVersesByJuz(1);              // الحصول على جميع آيات جزء
+
+// الصفحات (جديد في 0.1.2)
+await quran.getAllPages();                  // الحصول على جميع الصفحات (604)
+await quran.getPage(1);                     // الحصول على صفحة محددة
+await quran.getPageNumber(2, 1);            // الحصول على رقم صفحة آية
+await quran.getVersesByPage(1);             // الحصول على جميع آيات صفحة
+
+// السجدة (جديد في 0.1.2)
+await quran.getSajdaVerses();               // الحصول على جميع آيات السجدة (15)
+await quran.getSajdaVersesWithText();       // الحصول على آيات السجدة مع النص
+await quran.isSajdaVerse(32, 15);           // التحقق من كون آية سجدة
+
+// الأحزاب (جديد في 0.1.2)
+await quran.getAllHizb();                   // الحصول على جميع الأحزاب (60)
+await quran.getHizb(1);                     // الحصول على حزب محدد
+await quran.getVersesByHizb(1);             // الحصول على جميع آيات حزب
 
 // الصوتيات
 quran.getReciters();                        // الحصول على قائمة القراء

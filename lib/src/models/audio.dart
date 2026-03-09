@@ -3,13 +3,11 @@ class Audio {
   final int reciterId;
   final String reciterName;
   final String url;
-  final String urlOriginal;
 
   const Audio({
     required this.reciterId,
     required this.reciterName,
     required this.url,
-    required this.urlOriginal,
   });
 
   /// Reciter information
@@ -50,8 +48,7 @@ class Audio {
     return Audio(
       reciterId: reciterId,
       reciterName: reciter['name']!,
-      url: 'https://cdn.example.com/audio/$reciterId/${surahNo}_$verseNo.mp3',
-      urlOriginal: 'https://everyayah.com/data/${reciter['slug']}/$surahPadded$versePadded.mp3',
+      url: 'https://everyayah.com/data/${reciter['slug']}/$surahPadded$versePadded.mp3',
     );
   }
 
@@ -64,7 +61,6 @@ class Audio {
       reciterId: reciterId,
       reciterName: reciter['name']!,
       url: '${reciter['chapter_url']}/$surahPadded.mp3',
-      urlOriginal: '${reciter['chapter_url']}/$surahPadded.mp3',
     );
   }
 
@@ -73,7 +69,6 @@ class Audio {
       'reciter_id': reciterId,
       'reciter_name': reciterName,
       'url': url,
-      'url_original': urlOriginal,
     };
   }
 

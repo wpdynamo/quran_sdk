@@ -12,6 +12,9 @@ Offline-first Quran SDK for Flutter with complete Arabic and English translation
 - 🎵 **Audio Support**: Links to 5 famous reciters for every verse and chapter
 - 🔍 **Search**: Search verses in Arabic or English
 - 📚 **Juz Support**: Access all 30 Juz (parts) of the Quran
+- 📄 **Pages Support**: Access all 604 Mushaf pages (NEW in 0.1.2)
+- 🕌 **Sajda Verses**: Get all 15 Sajda (prostration) verses (NEW in 0.1.2)
+- 📖 **Hizb Support**: Access all 60 Hizb quarters (NEW in 0.1.2)
 - 🎲 **Random Verse**: Get random verses
 - ⚡ **Fast**: All data loaded into memory for instant access
 - 🎯 **Simple API**: Easy-to-use methods for all operations
@@ -22,7 +25,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  quran_sdk: ^0.1.0
+  quran_sdk: ^0.1.2
 ```
 
 Then run:
@@ -128,6 +131,63 @@ final verses = await quran.getVersesByJuz(1);
 print('Juz 1 has ${verses.length} verses');
 ```
 
+### Get Pages (NEW in 0.1.2)
+
+```dart
+// Get all pages (604 pages)
+final pages = await quran.getAllPages();
+print('Total pages: ${pages.length}');
+
+// Get a specific page
+final page = await quran.getPage(1);
+print('Page ${page?.number}: ${page?.startSurah}:${page?.startVerse} to ${page?.endSurah}:${page?.endVerse}');
+
+// Get page number for a verse
+final pageNum = await quran.getPageNumber(2, 1);
+print('Verse 2:1 is on page $pageNum');
+
+// Get all verses in a page
+final verses = await quran.getVersesByPage(1);
+print('Page 1 has ${verses.length} verses');
+```
+
+### Get Sajda Verses (NEW in 0.1.2)
+
+```dart
+// Get all Sajda verses (15 verses)
+final sajdaVerses = await quran.getSajdaVerses();
+print('Total Sajda verses: ${sajdaVerses.length}');
+
+for (var sajda in sajdaVerses) {
+  print('${sajda.surahNameArabic} ${sajda.verseNumber} - ${sajda.type}');
+  // Output: الأعراف 206 - recommended
+}
+
+// Get Sajda verses with full text
+final verses = await quran.getSajdaVersesWithText();
+
+// Check if a verse is Sajda
+final isSajda = await quran.isSajdaVerse(32, 15);
+print('Is 32:15 a Sajda verse? $isSajda'); // true
+```
+
+### Get Hizb Information (NEW in 0.1.2)
+
+```dart
+// Get all Hizb (60 Hizb)
+final hizbList = await quran.getAllHizb();
+print('Total Hizb: ${hizbList.length}');
+
+// Get a specific Hizb
+final hizb = await quran.getHizb(1);
+print('${hizb?.displayName}: ${hizb?.start} to ${hizb?.end}');
+// Output: الحزب 1 - الربع 1: 1:1 to 2:25
+
+// Get all verses in a Hizb
+final verses = await quran.getVersesByHizb(1);
+print('Hizb 1 has ${verses.length} verses');
+```
+
 ### Audio Support
 
 ```dart
@@ -140,7 +200,7 @@ for (var reciter in reciters) {
 // Get verse audio
 final verse = await quran.getVerse(1, 1);
 final audio = verse?.audio[1]; // Reciter ID 1 (Mishary Al Afasy)
-print('Audio URL: ${audio?.urlOriginal}');
+print('Audio URL: ${audio?.url}');
 
 // Get chapter audio
 final chapterAudio = quran.getChapterAudio(1, 112);
@@ -181,6 +241,10 @@ class Verse {
   final String textArabicNoTashkeel;
   final String textEnglish;
   final Map<int, Audio> audio;
+  final int? pageNumber;        // NEW in 0.1.2
+  final int? hizbNumber;        // NEW in 0.1.2
+  final bool isSajda;           // NEW in 0.1.2
+  final String? sajdaType;      // NEW in 0.1.2
 }
 ```
 
@@ -199,6 +263,53 @@ class JuzPosition {
 }
 ```
 
+### QuranPage (NEW in 0.1.2)
+
+```dart
+class QuranPage {
+  final int number;              // 1-604
+  final List<PageVerse> verses;
+  final int startSurah;
+  final int startVerse;
+  final int endSurah;
+  final int endVerse;
+}
+
+class PageVerse {
+  final int surahNumber;
+  final int verseNumber;
+  final bool isFirstInSurah;
+}
+```
+
+### Sajda (NEW in 0.1.2)
+
+```dart
+class Sajda {
+  final int surahNumber;
+  final int verseNumber;
+  final String surahName;
+  final String surahNameArabic;
+  final String type;             // 'obligatory' or 'recommended'
+}
+```
+
+### Hizb (NEW in 0.1.2)
+
+```dart
+class Hizb {
+  final int number;              // 1-60
+  final int quarter;             // 1-4
+  final HizbPosition start;
+  final HizbPosition end;
+}
+
+class HizbPosition {
+  final int surah;
+  final int verse;
+}
+```
+
 ### Audio
 
 ```dart
@@ -206,7 +317,6 @@ class Audio {
   final int reciterId;
   final String reciterName;
   final String url;
-  final String urlOriginal;
 }
 ```
 
@@ -215,9 +325,12 @@ class Audio {
 The package includes all Quran data embedded as JSON files:
 - Surahs: ~30 KB
 - Verses: ~3.7 MB
-- Juz: ~1 KB
+- Juz: ~4 KB
+- Pages: ~632 KB (NEW in 0.1.2)
+- Sajda: ~2 KB (NEW in 0.1.2)
+- Hizb: ~24 KB (NEW in 0.1.2)
 
-Total embedded data: ~3.8 MB
+Total embedded data: ~4.4 MB
 
 ## 🔧 Advanced Usage
 
